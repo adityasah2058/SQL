@@ -1,0 +1,117 @@
+create table Students_info(
+First_name varchar(20),Last_name varchar(20), address varchar(30), DOB date, gpa float );
+
+insert into students_info values('aditya','sah','delhi','2001-07-26','7.22');
+insert into students_info values('rohan','sah','birgunj','2001-07-26','6.2');
+insert into students_info values('shreyas','iyer','kolkata','2001-07-26','6.2');
+insert into students_info values('virat','kohli','delhi','2001-07-26','8.2');
+insert into students_info values('hardik','pandya','mumbai','2001-07-26','5.2');
+insert into students_info values('rohit','sharma','mumbai','2001-07-26','7.2');
+select * from students_info;
+
+-- 1. Print FIRST_NAME from the Student table after replacing 'a' with 'A'.
+SELECT 
+    REPLACE(First_name, 'a', 'A')
+FROM
+    Students_info; 
+    
+    
+
+-- 2. print the FIRST_NAME and LAST_NAME from Student table into single column COMPLETE_NAME.
+SELECT 
+    CONCAT(First_name, ' ', last_name) AS Full_name
+FROM
+    Students_info;
+    
+    
+
+-- 3.  print details of the Students with the FIRST_NAME as 'aditya' and 'virat' from Student table.
+SELECT 
+    *
+FROM
+    Students_info
+WHERE
+    First_name IN ('aditya' , 'virat');
+    
+
+
+-- 4. print details of the Students excluding FIRST_NAME as 'aditya' and 'virat' from Student table.
+SELECT 
+    *
+FROM
+    Students_info
+WHERE
+    First_name NOT IN ('aditya' , 'virat');
+    
+    
+
+-- 5. print details of the Students whose GPA lies between 4 and 8.
+SELECT 
+    *
+FROM
+    Students_info
+WHERE
+    gpa BETWEEN 4 AND 8;
+    
+    
+
+-- 6. fetch Students full names with GPA >= 5 and <= 8.
+SELECT 
+    CONCAT(First_name, ' ', Last_name) AS full_name, gpa
+FROM
+    Students_info
+WHERE
+    gpa BETWEEN 5 AND 8; 
+
+
+
+-- 7. query to show only odd gpa from table
+SELECT 
+    *
+FROM
+    Students_info
+WHERE
+    gpa % 2 != 0;
+    
+    
+
+-- 8. show the top n (say 5) records of Student table order by descending GPA.
+SELECT 
+    gpa, First_name
+FROM
+    Students_info
+ORDER BY gpa DESC
+LIMIT 5;
+
+
+
+-- 9. query to determine the nth (say n=5) highest GPA from a table.
+SELECT 
+    *
+FROM
+    Students_info
+ORDER BY GPA DESC
+LIMIT 4 , 1;
+
+
+
+-- 10. Query to fetch the list of Students with the same GPA.
+SELECT 
+    First_name, gpa
+FROM
+    Students_info
+GROUP BY gpa
+HAVING COUNT(*) > 1;
+
+
+
+-- 11. query to show the second highest GPA from table using sub-query.
+SELECT 
+    MAX(GPA)
+FROM
+    Students_info
+WHERE
+    GPA NOT IN (SELECT 
+            MAX(GPA)
+        FROM
+            Students_info);
